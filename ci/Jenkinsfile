@@ -1,0 +1,3 @@
+@Library('rc_ci_functions') _
+
+python_build('processing', 'processingapp')
