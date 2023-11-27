@@ -85,9 +85,15 @@ def populate_stats():
 
     curr_DT = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    reqs_book = requests.get(f'{app_config["eventstore"]["url"]}/bookings/book?start_timestamp={stats["last_updated"]}&end_timestamp={curr_DT}')
-    reqs_cancel = requests.get(f'{app_config["eventstore"]["url"]}/bookings/cancel?start_timestamp={stats["last_updated"]}&end_timestamp={curr_DT}')
-
+    try:
+        reqs_book = requests.get(f'{app_config["eventstore"]["url"]}/bookings/book?start_timestamp={stats["last_updated"]}&end_timestamp={curr_DT}', timeout=5)
+    except:
+        logger.error("Could not get bookings")
+    try:
+        reqs_cancel = requests.get(f'{app_config["eventstore"]["url"]}/bookings/cancel?start_timestamp={stats["last_updated"]}&end_timestamp={curr_DT}', timeout=5)
+    except:
+        logger.error("Could not get cancellations")
+        
     if reqs_book.status_code == 200:
         json_list = reqs_book.json()
         stats["num_bookings"] = stats["num_bookings"] + len(json_list)
