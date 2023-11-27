@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  description: This API handles event bookings and cancellations
+  version: "1.0.0"
+  title: Event Planning API
+  contact:
+    email: rchan200@my.bcit.ca
+
+paths:
+  /stats:
+    get:
+      summary: Gets event stats
+      operationId: app.get_stats
+      description: Gets booking and cancellation processed statistics
+      responses:
+        '200':
+          description: Successfully returned event statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/EventStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    
+  /health:
+    get:
+      description: Returns health status
+      operationId: app.health
+      responses:
+        '200':
+          description: Successfully returned health status
+        
+
+components:
+  schemas:
+    EventStats:
+      required:
+        - num_bookings
+        - max_booking_duration
+        - num_cancels
+        - max_cancel_refund
+      properties:
+        num_bookings:
+          type: integer
+          example: 50000
+        max_booking_duration:
+          type: integer
+          example: 300
+        num_cancels:
+          type: integer
+          example: 30000
+        max_cancel_refund:
+          type: number
+          example: 700.00
+      type: object
