@@ -1,3 +1,3 @@
-@Library('rc_ci_functions') _
+@Library('rc_jenkins_library') _
 
 event_services('processing', 'processingapp')
