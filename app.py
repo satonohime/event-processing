@@ -64,6 +64,7 @@ def get_stats():
 
 
 def populate_stats():
+    logger.info("Demo")
     logger.info("Periodic Processing Started")
     stats = {}
     try:
@@ -150,5 +151,4 @@ app.add_api(
 
 if __name__ == "__main__":
     init_scheduler()
-    print("hello world")
     app.run(port=8100)
