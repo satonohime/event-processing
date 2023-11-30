@@ -150,4 +150,5 @@ app.add_api(
 
 if __name__ == "__main__":
     init_scheduler()
+    print("hello world")
     app.run(port=8100)
